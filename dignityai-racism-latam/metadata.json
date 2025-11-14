@@ -1,0 +1,76 @@
+{
+  "nombre": "DignityAI-Racism-LATAM",
+  "version": "1.0.0",
+  "descripcion": "Dataset de discriminación racial en español latinoamericano",
+  "total_ejemplos": 32351,
+  "paises": [
+    "México",
+    "Argentina",
+    "Colombia",
+    "Chile",
+    "Perú"
+  ],
+  "categorias": [
+    "colorismo",
+    "racismo_anti_indigena",
+    "racismo_anti_afrolatino",
+    "microagresiones_raciales",
+    "racismo_institucional"
+  ],
+  "fecha_generacion": "2025-11-14T23:11:03.844246",
+  "autor": "Antonio Dromundo",
+  "licencia": "CC BY-NC-SA 4.0",
+  "parte_de": "Iniciativa DignityAI",
+  "advertencia_uso": "CONTENIDO ALTAMENTE SENSIBLE - Uso exclusivo para investigación y educación",
+  "contacto": {
+    "linkedin": "linkedin.com/in/antonio-dromundo",
+    "twitter": "@antonnDromundo",
+    "github": "github.com/antonnDromundo",
+    "email": "antuansabe@gmail.com"
+  },
+  "estadisticas": {
+    "por_pais": {
+      "México": 6796,
+      "Argentina": 6599,
+      "Colombia": 6391,
+      "Chile": 6286,
+      "Perú": 6279
+    },
+    "por_categoria": {
+      "colorismo": 8090,
+      "racismo_anti_afrolatino": 6618,
+      "racismo_anti_indigena": 6301,
+      "microagresiones_raciales": 6285,
+      "racismo_institucional": 5057
+    },
+    "por_contexto": {
+      "app_citas": 2382,
+      "redes_sociales": 2358,
+      "comentario_politico": 2338,
+      "foro_online": 2337,
+      "conversacion_laboral": 2331,
+      "proceso_contratacion": 2326,
+      "entorno_educativo": 2324,
+      "grupo_whatsapp": 2320,
+      "interaccion_policial": 2314,
+      "discusion_familiar": 2301,
+      "comentario_youtube": 2284,
+      "interaccion_servicio_cliente": 2266,
+      "medios_comunicacion": 2258,
+      "espacio_publico": 2212
+    },
+    "por_nivel_sutileza": {
+      "explícito": 12919,
+      "normalizado": 8090,
+      "sutil": 6285,
+      "sistémico": 5057
+    }
+  },
+  "validacion_requerida": [
+    "Revisión por académicos de estudios raciales",
+    "Consulta con organizaciones afrodescendientes",
+    "Consulta con organizaciones indígenas",
+    "Validación regional por país",
+    "Revisión ética institucional"
+  ]
+}
