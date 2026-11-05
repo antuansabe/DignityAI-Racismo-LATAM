@@ -1,478 +1,121 @@
-# DignityAI-Racism-LATAM
+# DignityAI-Racismo-LATAM
 
-<div align="center">
+> Parte de [DignityAI](https://sin-odio.vercel.app/dignityai): recursos abiertos para detectar y estudiar discriminación en el español de América Latina.
 
-![DignityAI](https://img.shields.io/badge/DignityAI-Racism%20Detection-red)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
-![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-green)
-![Language](https://img.shields.io/badge/language-Spanish%20(LATAM)-yellow)
-![Samples](https://img.shields.io/badge/samples-32%2C351-orange)
+**Advertencia de contenido.** Este dataset contiene lenguaje de discriminación racial explícito y sutil. Existe para entrenar y evaluar sistemas que **detectan** discriminación, nunca para generarla.
 
-**Protecting Human Dignity Through AI**
+**Estado:** 🛑 datos sintéticos · 🛑 sin validación comunitaria · versión recomendada **1.1**
 
-</div>
+*English summary: synthetic, template-based Spanish dataset on racial discrimination across 5 countries, with contrastive non-discriminatory alternatives. Version 1.1 removes duplicates and near-duplicates and provides leakage-free splits. Best used for stress-testing and taxonomy work, not as the sole training source for a detector. License CC BY-NC-SA 4.0.*
 
----
+## Qué contiene
 
-## ⚠️ CONTENT WARNING | ADVERTENCIA DE CONTENIDO
+Textos discriminatorios escritos a partir de plantillas combinatorias, cada uno etiquetado con país, categoría, subcategoría, nivel de sutileza y contexto (redes sociales, trabajo, apps de citas, etc.), más un conjunto de textos de contraste no discriminatorios.
 
-**🔴 THIS DATASET CONTAINS HIGHLY SENSITIVE RACIAL CONTENT**
+- **Países:** México, Argentina, Colombia, Chile, Perú
+- **Taxonomía:** 5 categorías, 21 subcategorías, niveles de sutileza: explícito, normalizado, sutil, sistémico
 
-This dataset documents **explicit racist language and discrimination** found in Latin American Spanish-speaking communities. It is designed **EXCLUSIVELY for:**
+| Categoría | Subcategorías | Textos únicos |
+|---|---|---:|
+| `colorismo` | `blanqueamiento_aspiracional`, `denigracion_piel_oscura`, `jerarquia_racial_intragrupo`, `preferencia_piel_clara` | 6,050 |
+| `microagresiones_raciales` | `comentarios_pelo_afro`, `exotizacion`, `negacion_racismo`, `sorpresa_competencia`, `tokenismo` | 3,499 |
+| `racismo_anti_afrolatino` | `criminalizacion`, `estereotipos_afrodescendientes`, `hipersexualizacion`, `negacion_afrolatinidad` | 4,497 |
+| `racismo_anti_indigena` | `desprecio_lenguas_originarias`, `estereotipos_indigenas`, `folclorizacion_deshumanizante`, `negacion_identidad_indigena` | 4,505 |
+| `racismo_institucional` | `discriminacion_laboral`, `exclusion_espacial`, `perfilamiento_racial`, `violencia_simbolica_institucional` | 2,934 |
 
-- ✅ Academic research on racism
-- ✅ Training AI models to **DETECT** (not generate) racist content
-- ✅ Educational purposes in controlled environments
-- ✅ Development of content moderation tools
+## Versiones
 
-**❌ This dataset should NEVER be used to:**
-- Generate racist content
-- Train models without ethical oversight
-- Display examples without educational context
-- Commercial applications without community consultation
+| Versión | Carpeta | Formato | Recomendación |
+|---|---|---|---|
+| **1.1** | [`v1.1/`](v1.1/) | Una fila por texto: `texto`, `etiqueta` (1 discriminatorio, 0 contraste), `tipo`, `pais`, `categoria`, `subcategoria`, `nivel_sutileza`, `contexto` | **Usar esta** |
+| 1.0 | [`dignityai-racism-latam/`](dignityai-racism-latam/) | Pares (texto discriminatorio + alternativa) con metadatos extendidos | Solo para consultar los pares; **no uses sus splits** |
 
-**By accessing this dataset, you acknowledge:**
-1. The severe ethical responsibility involved
-2. The potential to cause harm if misused
-3. The commitment to responsible usage
-4. The need for content warnings when presenting findings
+## Cifras medidas (noviembre 2026)
 
----
+Calculadas con [`scripts/build_v1_1.py`](scripts/build_v1_1.py); el detalle está en [`v1.1/reporte_v1_1.json`](v1.1/reporte_v1_1.json).
 
-## 📚 About DignityAI
+| Medida | Valor |
+|---|---:|
+| Filas en v1.0 (pares) | 32,351 |
+| Textos en formato largo | 64,702 |
+| Tras quitar duplicados exactos | 26,535 |
+| **Tras quitar casi-duplicados (v1.1)** | **22,769** |
+| Discriminatorios / contraste | 21,485 / 1,284 |
+| Train / validación / prueba | 15,938 / 3,415 / 3,416 |
+| Fuga entre train y prueba (v1.1) | 0.0% |
 
-**DignityAI** is an open-source initiative dedicated to protecting human dignity through AI, with a focus on detecting and preventing discrimination in Spanish-speaking communities.
+Textos discriminatorios únicos por país:
 
-### The DignityAI Family
+| País | Textos |
+|---|---:|
+| México | 5,157 |
+| Argentina | 4,305 |
+| Colombia | 4,097 |
+| Perú | 4,082 |
+| Chile | 3,844 |
 
-This dataset is part of a comprehensive suite addressing different forms of discrimination in Latin America:
+### Qué tan difícil es (baselines TF-IDF + regresión logística, F1 macro)
 
-| Dataset | Focus | Size | Status |
-|---------|-------|------|--------|
-| [SinOdio-LATAM](https://huggingface.co/datasets/Nohyc/SinOdio-LATAM) | General hate speech | 20,000 | ✅ Published |
-| [DignityAI-Machismo-LATAM](https://huggingface.co/datasets/Nohyc/DignityAI-Machismo-LATAM) | Machismo & sexism | 18,000 | ✅ Published |
-| [DignityAI-Clasismo-LATAM](https://huggingface.co/datasets/Nohyc/DignityAI-Clasismo-LATAM) | Classism | 30,000 | ✅ Published |
-| **DignityAI-Racism-LATAM** | **Racial discrimination** | **32,351** | **🆕 This dataset** |
+| Tarea | F1 |
+|---|---:|
+| Discriminatorio vs. contraste, partición v1.1 | 0.996 |
+| Discriminatorio vs. contraste, **subcategorías no vistas** | **0.779** |
+| Clasificar la categoría | 0.993 |
 
----
+Que un modelo tan simple llegue a ~0.99 significa que los textos se distinguen por el estilo de la plantilla, no por comprensión. **La fila de subcategorías no vistas es la cifra honesta de generalización.**
 
-## 🎯 Dataset Overview
+## Limitaciones medidas
 
-### What makes this dataset unique?
+- **Es sintético.** Las plantillas no capturan la variedad del lenguaje real. El ruido (typos, abreviaturas, risas) se añadió con un script solo al lado discriminatorio, así que un modelo puede aprender que "escribir informal" = discriminación.
+- **Los contrastes son pocos.** Solo 1,284 textos de contraste únicos frente a 21,485 discriminatorios (longitud mediana 55 vs. 43 caracteres).
+- **La v1.0 tenía fuga.** Sus splits repetían en prueba casi el 100% de los textos de contraste de entrenamiento. Por eso existe la v1.1.
+- **Sin validación comunitaria.** Ninguna organización ni comunidad afectada ha revisado los ejemplos todavía.
 
-**DignityAI-Racism-LATAM** is the first comprehensive dataset of racial discrimination in Latin American Spanish, with special emphasis on:
+### Qué no cubre
 
-1. **Colorism** - The dominant form of racism in LATAM (preference for lighter skin)
-2. **Anti-Indigenous racism** - Against 60M+ indigenous peoples
-3. **Anti-Afro-Latino racism** - Against 150M+ Afro-descendants
-4. **Racial microaggressions** - Normalized everyday racism
-5. **Institutional racism** - Structural discrimination
+- Racismo contra personas asiático-latinoamericanas, de origen árabe o judío.
+- Caribe hispanohablante (Cuba, República Dominicana, Puerto Rico) y Centroamérica.
+- Racismo codificado o de "silbato para perros" que depende de contexto.
+- Intersecciones con discapacidad o diversidad sexual, salvo casos aislados.
 
-### Key Statistics
-
-- **32,351 unique examples** (after deduplication)
-- **5 countries**: Mexico, Argentina, Colombia, Chile, Peru
-- **5 major categories** of racial discrimination
-- **18 detailed subcategories**
-- **Contrastive pairs**: Each racist text paired with anti-racist counterpart
-- **Rich metadata**: Intersectionality, historical context, sensitivity levels
-- **Regional authenticity**: Country-specific slang and expressions
-
-### Dataset Structure
-
-```
-dignityai-racism-latam/
-├── dataset.csv           # Full dataset (11 MB)
-├── dataset.json          # JSON format (22 MB)
-├── dataset.parquet       # Efficient format (1.3 MB)
-├── train.csv             # 70% (22,645 samples)
-├── validation.csv        # 15% (4,853 samples)
-├── test.csv              # 15% (4,853 samples)
-└── metadata.json         # Dataset metadata
-```
-
----
-
-## 📊 Category Distribution
-
-| Category | % | Examples | Description |
-|----------|---|----------|-------------|
-| **Colorism** | 25% | 8,088 | Discrimination by skin tone - dominant form in LATAM |
-| **Anti-Indigenous** | 20% | 6,470 | Against indigenous peoples (60M+ in LATAM) |
-| **Anti-Afro-Latino** | 20% | 6,470 | Against Afro-descendants (150M+ in LATAM) |
-| **Microaggressions** | 20% | 6,470 | Normalized everyday racial discrimination |
-| **Institutional** | 15% | 4,853 | Structural and systematic racism |
-
-### Subcategories (18 total)
-
-<details>
-<summary><strong>Colorism (4 subcategories)</strong></summary>
-
-1. **Preference for light skin** - Privilege of whiteness
-2. **Denigration of dark skin** - Insults based on darker skin
-3. **Intra-group racial hierarchy** - Colorism within racialized communities
-4. **Aspirational whitening** - Desire to "whiten" descendants
-
-</details>
-
-<details>
-<summary><strong>Anti-Indigenous Racism (4 subcategories)</strong></summary>
-
-1. **Indigenous stereotypes** - Dehumanizing stereotypes
-2. **Denial of indigenous identity** - Forced assimilation
-3. **Disdain for original languages** - Linguistic racism
-4. **Dehumanizing folklorization** - Reducing culture to folklore
-
-</details>
-
-<details>
-<summary><strong>Anti-Afro-Latino Racism (4 subcategories)</strong></summary>
-
-1. **Afro-descendant stereotypes** - Harmful racial stereotypes
-2. **Hypersexualization** - Sexual objectification
-3. **Criminalization** - Automatic association with crime
-4. **Denial of Afro-Latinidad** - Invisibilization of Afro-descendants
-
-</details>
-
-<details>
-<summary><strong>Racial Microaggressions (5 subcategories)</strong></summary>
-
-1. **Afro hair comments** - Invasive comments about textured hair
-2. **Surprise at competence** - Shock when racialized people are competent
-3. **Exoticization** - Treating as exotic/different
-4. **Denial of racism** - Gaslighting racial experiences
-5. **Tokenism** - Using as diversity quotas
-
-</details>
-
-<details>
-<summary><strong>Institutional Racism (4 subcategories)</strong></summary>
-
-1. **Spatial exclusion** - De facto segregation
-2. **Labor discrimination** - Hiring/promotion discrimination
-3. **Racial profiling** - By police and security
-4. **Institutional symbolic violence** - Systemic erasure
-
-</details>
-
----
-
-## 💾 Data Fields
-
-Each example contains:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `pais` | string | Country (México, Argentina, Colombia, Chile, Perú) |
-| `categoria` | string | Main category (5 types) |
-| `subcategoria` | string | Specific subcategory (18 types) |
-| `texto_racista` | string | **Racist text** (explicit content) |
-| `texto_antirracista` | string | Anti-racist counterpart |
-| `contexto` | string | Context where racism occurs |
-| `nivel_sutileza` | string | Subtlety level (explícito, sutil, normalizado, sistémico) |
-| `grupos_afectados` | list | Affected racialized groups |
-| `mecanismo_discriminacion` | string | Discrimination mechanism |
-| `interseccionalidad` | list | Intersectionality (race + class/gender) |
-| `jerga_regional` | bool | Contains regional slang |
-| `sensibilidad` | string | Sensitivity level (all are "alta" = high) |
-| `dimension_historica` | string | Historical context (colonialism, slavery, etc.) |
-| `generado_en` | string | Generation timestamp |
-| `id` | string | Unique identifier |
-
----
-
-## 🔍 Example (Sanitized)
-
-⚠️ **Content Warning**: This example contains racist language for educational purposes.
-
-```json
-{
-  "pais": "México",
-  "categoria": "colorismo",
-  "subcategoria": "preferencia_piel_clara",
-  "texto_racista": "Busco empleado de piel clara para atención al cliente",
-  "texto_antirracista": "Busco persona capacitada para el trabajo, sin importar su color de piel",
-  "contexto": "conversacion_laboral",
-  "nivel_sutileza": "normalizado",
-  "grupos_afectados": ["personas_piel_oscura", "afrodescendientes"],
-  "mecanismo_discriminacion": "privilegio_blanquitud",
-  "interseccionalidad": ["raza", "clase"],
-  "dimension_historica": "colorismo_colonial"
-}
-```
-
----
-
-## 🛠️ Methodology
-
-### Generation Process
-
-This dataset was created using a **template-based combinatorial approach** to ensure:
-
-✅ **High variability** - 32,351 unique combinations
-✅ **Perfect balance** - Stratified distribution across countries and categories
-✅ **Regional authenticity** - Country-specific slang validated culturally
-✅ **Ethical safeguards** - Contrastive pairs, rich metadata, sensitivity markers
-
-### Formula
-
-```
-Templates × Regional Variables × Contexts × Countries × Deduplication = 32,351 unique examples
-```
-
-### Quality Assurance
-
-- ✅ Manual review of 500+ random samples
-- ✅ Deduplication (removed ~7% duplicates)
-- ✅ Balance validation (CV < 0.17 across categories)
-- ✅ Regional slang validation
-
-### ⚠️ Validation Required Before Publication
-
-As stated in the dataset generation process, this dataset **REQUIRES**:
-
-1. ✅ Review by academics specializing in racial studies
-2. ✅ Consultation with Afro-descendant organizations
-3. ✅ Consultation with indigenous organizations
-4. ✅ Regional validation per country
-5. ✅ IRB/Ethics approval (if in institution)
-6. ✅ Community feedback integration
-
----
-
-## 📖 Usage Examples
-
-### Loading the Dataset
-
-```python
-from datasets import load_dataset
-
-# Load full dataset
-dataset = load_dataset("path/to/dignityai-racism-latam")
-
-# Load specific split
-train_data = load_dataset("path/to/dignityai-racism-latam", split="train")
-```
-
-### Training a Classifier
-
-```python
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-
-# Example: Binary classifier for racist content detection
-model_name = "dccuchile/bert-base-spanish-wwm-uncased"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-# Create labels: 1 = racist, 0 = anti-racist
-# IMPORTANT: Only use to DETECT racism, never to GENERATE it
-```
-
-### Analyzing by Country
+## Cómo usarlo
 
 ```python
 import pandas as pd
 
-df = pd.read_csv("dataset.csv")
-
-# Distribution by country
-print(df['pais'].value_counts())
-
-# Filter by specific type of racism
-colorism_mx = df[(df['categoria'] == 'colorismo') & (df['pais'] == 'México')]
+base = "https://raw.githubusercontent.com/antuansabe/DignityAI-Racismo-LATAM/main/v1.1"
+train = pd.read_csv(f"{base}/train.csv")
+test = pd.read_csv(f"{base}/test.csv")
+print(train.groupby(["pais", "categoria"]).size())
 ```
 
----
+**Usos recomendados:** pruebas de estrés de detectores y LLMs, estudio de la taxonomía, materiales de formación con advertencia de contenido, aumento de datos **junto con** corpus reales (ver el [directorio de datos reales](https://sin-odio.vercel.app/dignityai#directorio)).
 
-## ⚖️ Ethical Considerations
+**No lo uses para:** generar contenido discriminatorio, entrenar un detector solo con estos datos, tomar decisiones automáticas sobre personas o fines comerciales sin autorización.
+- Guía de uso responsable: [`GUIA_USO_RESPONSABLE.md`](dignityai-racism-latam/GUIA_USO_RESPONSABLE.md)
+- Contexto histórico: [`CONTEXTO_HISTORICO.md`](dignityai-racism-latam/CONTEXTO_HISTORICO.md)
 
-### Historical Context
+## Licencia
 
-Racism in Latin America has unique characteristics:
+[CC BY-NC-SA 4.0](LICENSE). Uso libre para investigación, educación, organizaciones civiles y periodismo. Para uso comercial, escribe a antuansabe@gmail.com.
 
-1. **Colorism vs. Binary Racism**: Unlike the US black/white binary, LATAM has a spectrum of skin tones with discrimination intensity varying accordingly
-2. **Colonial Legacy**: Caste systems from 1500s-1800s created 16+ racial categories
-3. **Indigenous Genocide**: 90% of indigenous population eliminated 1492-1600
-4. **Afro-Latino Enslavement**: 4M+ Africans enslaved; Brazil was last to abolish (1888)
-5. **Whitening Policies**: 1800s-1900s governments incentivized European immigration to "mejorate la raza" (improve the race)
-6. **Myth of Racial Democracy**: "We're all mestizos" narrative masks deep inequalities
+## Cómo citar
 
-### Why This Matters
-
-- **Income Gap**: Light-skinned people earn 20-30% more
-- **Media Representation**: 90% of TV shows only light-skinned people
-- **Incarceration**: Afro-descendants 3x more likely to be imprisoned
-- **Indigenous Rights**: Ongoing land theft and cultural genocide
-- **Political Power**: Near-zero representation in leadership
-
-### Potential Harms
-
-**This dataset can cause harm if:**
-
-❌ Used to generate racist content
-❌ Deployed without bias auditing
-❌ Presented without content warnings
-❌ Used for commercial gain without community benefit
-❌ Applied outside intended detection use case
-
-### Recommended Safeguards
-
-✅ **Content warnings** on all materials
-✅ **Bias audits** for models trained on this data
-✅ **Fairness metrics** disaggregated by affected groups
-✅ **Adversarial testing** for potential misuse
-✅ **Community consultation** before deployment
-✅ **Transparency** about limitations
-
----
-
-## 🚧 Limitations
-
-### What this dataset does NOT cover
-
-- ❌ Racism against Asian Latin Americans
-- ❌ Racism against Middle Eastern Latin Americans
-- ❌ Anti-Semitism
-- ❌ Racism in Brazil (Portuguese, not Spanish)
-- ❌ Caribbean Spanish (Dominican Republic, Cuba, Puerto Rico)
-- ❌ Central American countries
-- ❌ Coded racism (dog whistles, subtle references)
-
-### Known Biases
-
-1. **Generation Method**: Template-based, may miss rare phrasings
-2. **Regional Coverage**: Only 5 countries of 20+ in LATAM
-3. **Historical Moment**: Reflects 2025 language patterns
-4. **Class Bias**: May under-represent upper-class coded racism
-5. **Intersectionality**: Limited coverage of race + disability, race + LGBTQ+
-
-### Quality Issues
-
-- Some templates may have grammatical variations
-- Regional slang may not cover all dialects
-- Contrastive pairs may not be perfectly balanced in tone
-
----
-
-## 📜 License
-
-**CC BY-NC-SA 4.0** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International)
-
-**You are free to:**
-- ✅ Share - copy and redistribute
-- ✅ Adapt - remix, transform, build upon
-
-**Under the following terms:**
-- **Attribution** - Give appropriate credit
-- **NonCommercial** - Not for commercial purposes without permission
-- **ShareAlike** - Distribute contributions under same license
-
-**Special Conditions:**
-- ⚠️  Commercial use requires community consultation
-- ⚠️  Must maintain content warnings
-- ⚠️  Must cite this dataset properly
-
----
-
-## 📚 Citation
-
-If you use this dataset in your research, please cite:
+Usa el archivo [`CITATION.cff`](CITATION.cff) (GitHub muestra el botón "Cite this repository") o:
 
 ```bibtex
-@dataset{dignityai_racism_latam_2025,
-  title = {DignityAI-Racism-LATAM: A Dataset of Racial Discrimination in Latin American Spanish},
+@misc{dromundo2025racismo,
   author = {Dromundo, Antonio},
-  year = {2025},
-  publisher = {HuggingFace},
-  version = {1.0.0},
-  url = {https://huggingface.co/datasets/Nohyc/DignityAI-Racism-LATAM},
-  note = {Part of the DignityAI initiative}
+  title  = {DignityAI-Racismo-LATAM: dataset sintético de discriminación racial en español},
+  year   = {2025},
+  note   = {Versión 1.1 (2026)},
+  url    = {https://github.com/antuansabe/DignityAI-Racismo-LATAM}
 }
 ```
 
-**APA Format:**
-```
-Dromundo, A. (2025). DignityAI-Racism-LATAM: A Dataset of Racial Discrimination in
-Latin American Spanish (Version 1.0.0) [Data set]. HuggingFace.
-https://huggingface.co/datasets/Nohyc/DignityAI-Racism-LATAM
-```
+## Contacto y contribuciones
 
----
+- Errores, sesgos o ejemplos que deban retirarse: abre un [issue](https://github.com/antuansabe/DignityAI-Racismo-LATAM/issues) o escribe a antuansabe@gmail.com.
+- Si eres parte de una comunidad afectada, tu revisión tiene prioridad sobre cualquier métrica.
 
-## 👥 Contact & Contribution
-
-### Author
-
-**Antonio Dromundo**
-- LinkedIn: [linkedin.com/in/antonio-dromundo](https://linkedin.com/in/antonio-dromundo)
-- Twitter: [@antonnDromundo](https://twitter.com/antonnDromundo)
-- GitHub: [github.com/antonnDromundo](https://github.com/antonnDromundo)
-- Email: antuansabe@gmail.com
-
-### How to Contribute
-
-We welcome contributions from researchers, activists, and community members:
-
-1. 🐛 **Report Issues**: Found errors or bias? Open an issue
-2. 📝 **Suggest Additions**: Missing subcategories or regions?
-3. 🌍 **Regional Validation**: Help validate slang for your country
-4. 🤝 **Community Review**: Represent an affected community? We want your feedback
-
-### Acknowledgments
-
-This dataset was created with deep respect for communities affected by racism in Latin America:
-
-- Afro-descendant organizations across LATAM
-- Indigenous peoples and nations
-- Academic researchers in critical race studies
-- Anti-racism activists
-
-**Their trauma is not our data. Their experience deserves respect. Their dignity is non-negotiable.**
-
----
-
-## 🌟 Related Work
-
-### Academic Papers
-
-- Telles, E. (2014). *Pigmentocracies: Ethnicity, Race, and Color in Latin America*
-- Wade, P. (2017). *Race and Ethnicity in Latin America*
-- Hernández, T. (2013). *Racial Subordination in Latin America*
-- CEPAL (2020). *Afrodescendientes y la matriz de la desigualdad social en América Latina*
-
-### Other DignityAI Datasets
-
-- [SinOdio-LATAM](https://huggingface.co/datasets/Nohyc/SinOdio-LATAM) - General hate speech
-- [DignityAI-Machismo-LATAM](https://huggingface.co/datasets/Nohyc/DignityAI-Machismo-LATAM) - Sexism & machismo
-- [DignityAI-Clasismo-LATAM](https://huggingface.co/datasets/Nohyc/DignityAI-Clasismo-LATAM) - Economic discrimination
-
-### Spanish NLP Resources
-
-- [BETO](https://huggingface.co/dccuchile/bert-base-spanish-wwm-uncased) - Spanish BERT
-- [RoBERTuito](https://huggingface.co/pysentimiento/robertuito-base-uncased) - Spanish Twitter RoBERTa
-- [mBERT](https://huggingface.co/bert-base-multilingual-cased) - Multilingual BERT
-
----
-
-## 🙏 Final Note
-
-This dataset exists because racism exists. It documents pain that is real and ongoing.
-
-**If you use this dataset:**
-- Remember the real people behind these experiences
-- Center their dignity in your work
-- Use it to combat racism, not perpetuate it
-- Commit to meaningful change, not just academic publishing
-
-**Primero no dañar. Siempre consultar. Nunca perpetuar.**
-*(First do no harm. Always consult. Never perpetuate.)*
-
----
-
-<div align="center">
-
-**🌟 DignityAI - Protecting Human Dignity Through AI 🌟**
-
-*Built with respect, maintained with care, used with responsibility*
-
-</div>
+Proyecto independiente de Antonio Dromundo ([GitHub](https://github.com/antuansabe), [Hugging Face](https://huggingface.co/antonn-dromundo)). No está afiliado a ninguna organización mencionada en este repositorio.

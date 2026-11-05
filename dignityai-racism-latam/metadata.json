@@ -23,10 +23,10 @@
   "parte_de": "Iniciativa DignityAI",
   "advertencia_uso": "CONTENIDO ALTAMENTE SENSIBLE - Uso exclusivo para investigación y educación",
   "contacto": {
-    "linkedin": "linkedin.com/in/antonio-dromundo",
-    "twitter": "@antonnDromundo",
-    "github": "github.com/antonnDromundo",
-    "email": "antuansabe@gmail.com"
+    "email": "antuansabe@gmail.com",
+    "github": "https://github.com/antuansabe",
+    "huggingface": "https://huggingface.co/antonn-dromundo",
+    "linkedin": "https://www.linkedin.com/in/antonndromundo/"
   },
   "estadisticas": {
     "por_pais": {
@@ -72,5 +72,7 @@
     "Consulta con organizaciones indígenas",
     "Validación regional por país",
     "Revisión ética institucional"
-  ]
+  ],
+  "advertencia_calidad": "Ver README: versión 1.1 recomendada; los splits de 1.0 tienen fuga entre train y test.",
+  "version_recomendada": "1.1.0 (carpeta v1.1/)"
 }

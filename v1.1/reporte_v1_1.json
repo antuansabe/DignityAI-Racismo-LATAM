@@ -1,0 +1,42 @@
+{
+  "version": "1.1.0",
+  "fuente": "dignityai-racism-latam",
+  "filas_v1_0_pares": 32351,
+  "textos_formato_largo": 64702,
+  "tras_quitar_duplicados_exactos": 26535,
+  "tras_quitar_casi_duplicados": 22769,
+  "esqueletos_con_etiqueta_contradictoria_descartados": 0,
+  "por_etiqueta": {
+    "discriminatorio": 21485,
+    "contraste": 1284
+  },
+  "splits": {
+    "train": 15938,
+    "validation": 3415,
+    "test": 3416
+  },
+  "fuga_test_train_esqueleto_pct": 0.0,
+  "por_pais_discriminatorio": {
+    "México": 5157,
+    "Argentina": 4305,
+    "Colombia": 4097,
+    "Perú": 4082,
+    "Chile": 3844
+  },
+  "por_categoria_discriminatorio": {
+    "colorismo": 6050,
+    "racismo_anti_indigena": 4505,
+    "racismo_anti_afrolatino": 4497,
+    "microagresiones_raciales": 3499,
+    "racismo_institucional": 2934
+  },
+  "baselines_tfidf_logreg_macro_f1": {
+    "binario_split_v1_1": 0.996,
+    "binario_subcategorias_no_vistas": 0.779,
+    "categoria_5_6_clases": 0.993
+  },
+  "longitud_mediana_caracteres": {
+    "discriminatorio": 43,
+    "contraste": 55
+  }
+}
