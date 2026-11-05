@@ -439,22 +439,21 @@ Acción legal si es necesario.
 
 **Si tienes dudas sobre si tu uso es apropiado, contacta ANTES de usar:**
 
-### Contactos Principales
+### Contacto
 
-**Antonio Dromundo** (Creador del dataset)
+**Antonio Dromundo** (creador del dataset)
 - Email: antuansabe@gmail.com
-- LinkedIn: [linkedin.com/in/antonio-dromundo](https://linkedin.com/in/antonio-dromundo)
-- Twitter: [@antonnDromundo](https://twitter.com/antonnDromundo)
+- GitHub: [github.com/antuansabe](https://github.com/antuansabe)
+- Issues: [DignityAI-Racismo-LATAM/issues](https://github.com/antuansabe/DignityAI-Racismo-LATAM/issues)
 
-**Tiempo de respuesta esperado:** 48-72 horas
+### Organizaciones de referencia (no afiliadas)
 
-### Organizaciones Consultivas
+Estas organizaciones trabajan en la región y son buenos puntos de partida para buscar consulta comunitaria. **No han revisado ni respaldan este dataset**; se listan solo como referencia.
 
-**Organizaciones Afrodescendientes:**
+**Afrodescendientes:**
 - Red de Mujeres Afrolatinoamericanas, Afrocaribeñas y de la Diáspora
-- Fundación Afrodescendiente
 
-**Organizaciones Indígenas:**
+**Pueblos indígenas:**
 - FILAC (Fondo para el Desarrollo de los Pueblos Indígenas de América Latina y el Caribe)
 - COICA (Coordinadora de las Organizaciones Indígenas de la Cuenca Amazónica)
 

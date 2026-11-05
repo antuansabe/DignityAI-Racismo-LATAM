@@ -1,5 +1,7 @@
 # Contexto Histórico: Racismo en América Latina
 
+> **Aviso (noviembre 2026):** las cifras de este documento **no tienen fuentes citadas ni verificadas**. Úsalo como orientación general, no lo cites, y contrasta cada dato con fuentes primarias (CEPAL, censos nacionales, literatura académica) antes de usarlo. Se reemplazará por una versión con referencias.
+
 ## 📜 Sistema de Castas Colonial (1500s-1800s)
 
 Durante la colonización española, se estableció un sistema de castas extremadamente complejo basado en la "pureza de sangre" (limpieza de sangre):

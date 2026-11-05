@@ -1921,9 +1921,8 @@ def exportar_dataset(df: pd.DataFrame, output_dir: str = "dignityai-racism-latam
         "parte_de": "Iniciativa DignityAI",
         "advertencia_uso": "CONTENIDO ALTAMENTE SENSIBLE - Uso exclusivo para investigación y educación",
         "contacto": {
-            "linkedin": "linkedin.com/in/antonio-dromundo",
-            "twitter": "@antonnDromundo",
-            "github": "github.com/antonnDromundo",
+            "linkedin": "https://www.linkedin.com/in/antonndromundo/",
+            "github": "https://github.com/antuansabe",
             "email": "antuansabe@gmail.com"
         },
         "estadisticas": {
